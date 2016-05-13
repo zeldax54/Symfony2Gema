@@ -1,0 +1,161 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% block gema_navbar_activos %}active{% endblock %}
+{% block gema_breadcrumb %}
+    <li><a href="{{path('activo')}}">Activos</a></li>
+    <li class="active">Nuevo</li>
+    {% endblock %}
+
+{% block gema_page -%}
+    <div class="page-header">
+        <h2>Nuevo Expediente de Activo</h2>
+    </div>
+<span id="cc"></span>
+    {{ form_start(form) }}
+    <div class="form-group">   
+        {{ form_row(form.nombre) }}
+        {{ form_row(form.area) }}
+        {{ form_row(form.centroCosto) }}
+        {{ form_row(form.tipoActivo) }} 
+        {{ form_row(form.marca) }}
+        {{ form_row(form.modelo) }}         
+        {{ form_row(form.factura) }}
+        {{ form_row(form.noInventario) }}
+        {{ form_row(form.fechaInstalacion) }}
+        {{ form_row(form.fechaPuestaMarcha) }}
+        {{ form_row(form.fechaDepreciacion) }}
+        {{ form_row(form.cicloMtto,{'attr':{'min':0}}) }}
+        {{ form_row(form.notas) }}
+        {% if is_granted('ROLE_OPERACIONES') %}
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <section class="gemaCard">
+                        <header>Estrategia de Operaciones</header>
+                        <div class="cardBody">
+                            <div class="cardIcon">
+                                <i class="fa fa-history"></i>
+                            </div>
+                            <div class="gema-block gema-show">
+                                <ul id="EstOsp" class="EstOps holder" style="list-style: none;" data-prototype="{{ form_widget(form.estOps.vars.prototype)|e }}">
+                                    {% for EstOp in form.estOps %}
+                                        <li>
+                                            {{ form_row(EstOp) }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <footer class=""></footer>
+                    </section>
+                </div>
+            </div>
+        {% endif %}
+        {{ form_rest(form) }}
+    </div>
+    {{ form_end(form) }}
+{% endblock %}
+
+
+{% block javascripts -%}
+    {{ parent() }}
+    <script>
+        jQuery(document).ready(function () {
+            // Get the ul that holds the collection of tags
+            var collectionHolder = $('ul.holder');
+            collectionHolder.find("li").each(function () {
+                addTagFormDeleteLink($(this));
+            });
+            // setup an "add a tag" link
+            // add the "add a tag" anchor and li to the tags ul
+            collectionHolder.each(function () {
+                var $addTagLink = $('<a href="#" class="add_element_link">Adicionar Elemento</a>');
+                var $newLinkLi = $('<li></li>').append($addTagLink);
+                $(this).append($newLinkLi);
+                // count the current form inputs we have (e.g. 2), use that as the new
+                // index when inserting a new item (e.g. 2)
+                $(this).data('index', $(this).find(':input').length);
+                var $ref = $(this);
+                $addTagLink.on('click', function (e) {
+                    // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+                    // add a new tag form (see next code block)
+                    addTagForm($ref, $newLinkLi);
+                });
+            });
+
+            function addTagForm(collectionHolder, $newLinkLi) {
+                // Get the data-prototype explained earlier
+                var prototype = collectionHolder.data('prototype');
+                // get the new index
+                var index = collectionHolder.data('index');
+                // Replace '__name__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                var newForm = prototype.replace(/__name__/g, index);
+                // increase the index with one for the next item
+                collectionHolder.data('index', index + 1);
+                // Display the form in the page in an li, before the "Add a tag" link li
+                var $newFormLi = $('<li></li>').append(newForm);
+                $newLinkLi.before($newFormLi);
+                addTagFormDeleteLink($newFormLi);
+
+                $('input[name^="gema_gemabundle_activo[estOps]"]').datetimepicker({
+                    'format': false,
+                    locale: 'es',
+                    sideBySide: true,
+                    icons: {
+                        previous: 'fa fa-chevron-left',
+                        next: 'fa fa-chevron-right',
+                        time: 'glyphicon glyphicon-time',
+                        date: 'glyphicon glyphicon-calendar',
+                        up: 'fa fa-chevron-up',
+                        down: 'fa fa-chevron-down',
+                        today: 'glyphicon glyphicon-screenshot',
+                        clear: 'glyphicon glyphicon-trash',
+                        close: 'glyphicon glyphicon-remove'
+                    }
+                });
+
+            }
+
+            function addTagFormDeleteLink($tagFormLi) {
+                var $removeFormA = $('<a href="#" class="delete_element_link"><i class="fa fa-close"></i></a>');
+                $tagFormLi.append($removeFormA);
+                $removeFormA.on('click', function (e) {
+                    // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+                    // remove the li for the tag form
+                    $tagFormLi.remove();
+                });
+            }
+
+
+
+
+
+        });
+
+    </script>
+
+{% endblock %}
+{% block custom_javascripts %}
+    <script>
+        $(document).ready(function () {
+            $('<a href="{{path('activo')}}" class="btn btn-default m-l-10 btn-cancel">Cancelar</a>').insertAfter('#gema_gemabundle_activo_submit');
+        });
+        $('#gema_gemabundle_activo_estOps').parent().remove();
+
+        $('#gema_gemabundle_activo_area').change(function(){
+
+            updateFields();
+        });
+        function updateFields()
+        {
+            var id=$('#gema_gemabundle_activo_area').val();
+            DBConect('area_ccosto','id',id,'gema_gemabundle_activo_centroCosto');
+        }
+        $(document).ready(function(){
+            updateFields();
+
+        });
+
+    </script>    
+{% endblock %}

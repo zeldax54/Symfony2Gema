@@ -1,0 +1,23 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% form_theme edit_form 'gemaBundle:Form:theme.html.twig' %}
+{% block gema_navbar_nomencladores %}active{% endblock %}
+{% block gema_breadcrumb %}
+    <li><a href="#">Nomencladores</a></li>
+    <li><a href="{{path('herramienta')}}">Herramientas</a></li>
+    <li class="active">Editar</li>
+    {% endblock %}
+    {% block gema_page -%}
+    <div class="page-header">
+        <h2>Editar Herramienta</h2>
+    </div>
+
+    {{ form(edit_form) }}
+
+{% endblock %}
+{% block custom_javascripts %}
+    <script>
+        $(document).ready(function () {
+            $('<a href="{{path('herramienta')}}" class="btn btn-default m-l-10 btn-cancel">Cancelar</a>').insertAfter('#gema_gemabundle_herramienta_submit');
+        });
+    </script>    
+{% endblock %}

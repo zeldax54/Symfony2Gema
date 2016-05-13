@@ -1,0 +1,17 @@
+    {% extends 'gemaBundle::layout.html.twig' %}
+
+    {% block gema_page -%}
+    <h3>Editar Tipo de Actividad </h3>
+
+    {{ form(edit_form) }}
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('tipoactividad')}}"><i class="fa fa-ban"></i>
+                Cancelar
+            </a></li>
+        <li class="next"><a href="{{path('tipoactividad')}}"><i class="fa fa-list"></i>
+                Listado de Tipos de Actividades
+            </a></li>
+
+    </ul>
+    {% endblock %}

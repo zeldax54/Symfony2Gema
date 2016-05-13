@@ -1,0 +1,32 @@
+ordentrabajo:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:OrdenTrabajo:index" }
+
+ordentrabajo_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:OrdenTrabajo:show" }
+
+ordentrabajo_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:OrdenTrabajo:new" }
+
+ordentrabajo_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:OrdenTrabajo:create" }
+    requirements: { _method: post }
+
+ordentrabajo_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:OrdenTrabajo:edit" }
+
+ordentrabajo_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:OrdenTrabajo:update" }
+
+ordentrabajo_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:OrdenTrabajo:delete" }
+    
+ordentrabajo_reporte:
+    pattern:  /reporte
+    defaults: { _controller: "gemaBundle:OrdenTrabajo:reporte" }

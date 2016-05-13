@@ -1,0 +1,28 @@
+procedimiento:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Procedimiento:index" }
+
+procedimiento_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Procedimiento:show" }
+
+procedimiento_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Procedimiento:new" }
+
+procedimiento_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Procedimiento:create" }
+    requirements: { _method: post }
+
+procedimiento_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Procedimiento:edit" }
+
+procedimiento_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Procedimiento:update" }
+
+procedimiento_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Procedimiento:delete" }

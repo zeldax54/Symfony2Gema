@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <style type="text/css">
+            table{
+                width: 100%;
+                text-align: left;       
+            }
+
+            table tr{
+                padding: 5px 10px;
+            }
+            table tr td{
+            }
+            .contenido td{
+                font-size: 10pt;
+                font-weight: 200;
+            }
+            .record_properties{
+                border: 1px solid #8B7958;
+            }
+            .record_properties tr td{
+                border-bottom: 1px solid #8B7958;
+                border-right: 1px solid #8B7958;
+            }            
+            .record_properties thead tr th{
+                border-bottom: 1px solid #8B7958;
+                border-right: 1px solid #8B7958;
+            }
+            .record_properties tr:last-of-type td{
+                border-bottom: none;
+            }
+            .record_properties tr td:last-of-type, .record_properties thead tr th:last-of-type{
+                border-right: none;
+            }
+        </style>
+        </style>
+    </head>
+    <body>
+        <table style="width: 100%" class="header list">
+            <tr style="text-align: center">
+                <td style="width: 100%; vertical-align: middle;">
+                    <h2>REPORTE DE FACTURAS</h2>
+                </td>
+            </tr>
+        </table>
+        <div class="table-responsive">
+            <table class="record_properties list" id="data-table-command" >
+                <thead>
+                    <tr class="separate">         
+                        <th data-column-id="codigo" >Código</th>  
+                        <th >Proveedor</th>
+                        <th>Fecha</th>                                                                        
+                        <th >Precio (pesos)</th>     
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for factura in facturas %}
+                        <tr class="contenido" style="text-align: center">
+                            <td>{{ factura.getCodigo() }}</td>
+                            <td>{{ factura.getProveedor() }}</td>
+                            <td>{{ factura.getFecha()|date('Y-m-d') }}</td>
+                            <td>{{ factura.getPrecio()|e }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+centrocosto:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:CentroCosto:index" }
+
+centrocosto_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:CentroCosto:show" }
+
+centrocosto_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:CentroCosto:new" }
+
+centrocosto_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:CentroCosto:create" }
+    requirements: { _method: post }
+
+centrocosto_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:CentroCosto:edit" }
+
+centrocosto_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:CentroCosto:update" }
+
+centrocosto_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:CentroCosto:delete" }

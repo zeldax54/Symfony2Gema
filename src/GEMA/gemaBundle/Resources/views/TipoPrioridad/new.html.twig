@@ -1,0 +1,22 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% block gema_navbar_nomencladores %}active{% endblock %}
+{% block gema_breadcrumb %}
+    <li><a href="#">Nomencladores</a></li>
+    <li><a href="{{path('tipoprioridad')}}">Tipos de Prioridad</a></li>
+    <li class="active">Nuevo</li>
+{% endblock %}
+    {% block gema_page -%}
+    <div class="page-header">
+        <h2>Crear Tipo de Prioridad</h2>
+    </div>
+    
+    {{ form(form) }}
+
+{% endblock %}
+{% block custom_javascripts %}
+    <script>
+        $(document).ready(function () {
+            $('<a href="{{path('tipoprioridad')}}" class="btn btn-default m-l-10 btn-cancel">Cancelar</a>').insertAfter('#gema_gemabundle_tipoprioridad_submit');
+        });
+    </script>    
+{% endblock %}

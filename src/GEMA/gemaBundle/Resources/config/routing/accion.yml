@@ -1,0 +1,28 @@
+accion:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Accion:index" }
+
+accion_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Accion:show" }
+
+accion_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Accion:new" }
+
+accion_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Accion:create" }
+    requirements: { _method: post }
+
+accion_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Accion:edit" }
+
+accion_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Accion:update" }
+
+accion_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Accion:delete" }

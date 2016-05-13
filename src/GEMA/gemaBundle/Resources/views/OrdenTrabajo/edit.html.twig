@@ -1,0 +1,125 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% block gema_navbar_orden %}active{% endblock %}
+{% block gema_breadcrumb %}
+    <li><a href="{{ path('ordentrabajo') }}">Órdenes de Trabajo</a></li>
+    <li class="active">Editar</li>
+    {% endblock %}
+{% block gema_page -%}<div class="page-header">
+        <h2>Editar Orden de Trabajo</h2>
+    </div>
+    
+    {{ form_start(edit_form) }}
+    <div class="form-group">
+        <div class="form-group">
+            {{ form_label(edit_form.nombre) }}        
+            {{ form_widget(edit_form.nombre, { 'attr': {'class': 'form-control'} }) }} 
+            {{ form_errors(edit_form.nombre) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(edit_form.planMtto) }}        
+            {{ form_widget(edit_form.planMtto, { 'attr': {'class': 'tag-select'} }) }} 
+            {{ form_errors(edit_form.planMtto) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(edit_form.procedimientos) }}        
+            {{ form_widget(edit_form.procedimientos, { 'attr': {'class': 'tag-select'} }) }} 
+            {{ form_errors(edit_form.procedimientos) }}
+        </div>
+        <div class="checkbox">
+            <label class="dropdown-item">
+                {{ form_widget(edit_form.cumplida, { 'attr': {'class': 'dropdown-item-checkbox'} }) }}
+                <i class="input-helper"></i> {{ form_label(edit_form.cumplida) }} 
+            </label>
+            {{ form_errors(edit_form.cumplida) }}
+        </div>
+        <div class="form-group">
+            {{ form_rest(edit_form) }}
+        </div>
+    </div>
+
+    {{ form_end(edit_form) }}
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+        var $collectionHolder;
+
+// setup an "add a tag" link
+        var $addTagLink = $('<a href="#" class="add_tag_link">Add a tag</a>');
+        var $newLinkLi = $('<li></li>').append($addTagLink);
+
+        jQuery(document).ready(function () {
+// Get the ul that holds the collection of tags
+            $collectionHolder = $('ul.otReps');
+
+            // add a delete link to all of the existing tag form li elements
+            $collectionHolder.find('li').each(function () {
+                addOtRepFormDeleteLink($(this));
+            });
+
+// add the "add a tag" anchor and li to the tags ul
+            $collectionHolder.append($newLinkLi);
+
+// count the current form inputs we have (e.g. 2), use that as the new
+// index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addTagLink.on('click', function (e) {
+// prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+// add a new tag form (see next code block)
+                addOtRepForm($collectionHolder, $newLinkLi);
+            });
+
+
+            function addOtRepForm($collectionHolder, $newLinkLi) {
+                // Get the data-prototype explained earlier
+                var prototype = $collectionHolder.data('prototype');
+
+                // get the new index
+                var index = $collectionHolder.data('index');
+
+                // Replace '__name__' in the prototype's HTML to
+                // instead be a number based on how many items we have
+                var newForm = prototype.replace(/__name__/g, index);
+
+                // increase the index with one for the next item
+                $collectionHolder.data('index', index + 1);
+
+                // Display the form in the page in an li, before the "Add a tag" link li
+                var $newFormLi = $('<li></li>').append(newForm);
+                $newLinkLi.before($newFormLi);
+                addOtRepFormDeleteLink($newFormLi);
+            }
+
+
+            function addOtRepFormDeleteLink($tagFormLi) {
+                var $removeFormA = $('<a href="#">Eliminar este Repuesto</a>');
+                $tagFormLi.append($removeFormA);
+
+                $removeFormA.on('click', function (e) {
+                    // prevent the link from creating a "#" on the URL
+                    e.preventDefault();
+
+                    // remove the li for the tag form
+                    $tagFormLi.remove();
+                });
+            }
+        });
+    </script>   
+{% endblock  %}
+{% block custom_javascripts %}
+    <script>
+        $(document).ready(function () {
+            $('<a href="{{path('ordentrabajo')}}" class="btn btn-default m-l-10 btn-cancel">Cancelar</a>').insertAfter('#gema_gemabundle_ordentrabajo_submit');
+        });
+    </script>    
+{% endblock %}

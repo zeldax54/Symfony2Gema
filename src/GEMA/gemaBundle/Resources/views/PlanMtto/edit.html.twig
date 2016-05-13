@@ -1,0 +1,23 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% block gema_navbar_mantenimiento %}active{% endblock %}
+{% block gema_breadcrumb %}
+    <li><a href="{{path('planmtto')}}">Necesidades de Mantenimiento</a></li>
+    <li class="active">Nueva</li>
+    {% endblock %}
+
+{% block gema_page -%}
+    <div class="page-header">
+        <h2>Editar Plan de Mantenimiento</h2>
+    </div>
+
+    {{ form(edit_form) }}
+
+
+{% endblock %}
+{% block custom_javascripts %}
+    <script>
+        $(document).ready(function () {
+            $('<a href="{{path('planmtto')}}" class="btn btn-default m-l-10 btn-cancel">Cancelar</a>').insertAfter('#gema_gemabundle_planmtto_submit');
+        });
+    </script>    
+{% endblock %}

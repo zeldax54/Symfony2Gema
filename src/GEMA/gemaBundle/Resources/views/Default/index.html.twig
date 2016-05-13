@@ -1,0 +1,178 @@
+{% extends "gemaBundle::layout.html.twig" %}
+{% block gema_navbar_dashboard %}active{% endblock %}
+{% block gema_page %}
+    <div class="page-header">
+        <h2>Tablero de Control <small></small></h2>
+    </div>
+    <div class="row m-t-20">
+        <section class="stat-container col-md-2 col-sm-6 col-xs-12">
+            <div class="dashboard-stat-icon m-t-20" style="position: relative; width: 80px; height: 90px; margin: 0 auto">
+                <div class="stat-number {% if numAreas == 0 %}bgm-red{%else%}bgm-lightgreen{% endif %} text-center" style="border-radius: 50%!important; position: absolute;color: white; right: -10px; top: -10px; padding: 5px; width: 30px; height: 30px;">{{numAreas}}</div>
+                <div class="stat-icon bgm-deeppurple">
+                    <span class="md md-extension" style="font-size: 65px; line-height: 65px; color: white"></span>
+                </div>
+            </div>
+            <p class="text-center">Áreas</p>
+        </section>
+        <section class="stat-container col-md-2 col-sm-6 col-xs-12">
+            <div class="dashboard-stat-icon m-t-20" style="position: relative; width: 80px; height: 90px; margin: 0 auto">
+                <div class="stat-number {% if numtActivo == 0 %}bgm-red{%else%}bgm-lightgreen{% endif %} text-center" style="border-radius: 50%!important; position: absolute;color: white; right: -10px; top: -10px; padding: 5px; width: 30px; height: 30px;">{{numtActivo}}</div>
+                <div class="stat-icon bgm-deeppurple">
+                    <span class="zmdi zmdi-labels" style="font-size: 65px; line-height: 65px; color: white"></span>
+                </div>
+            </div>
+            <p class="text-center">Tipos de Activo</p>
+        </section>
+        <section class="stat-container col-md-2 col-sm-6 col-xs-12">
+            <div class="dashboard-stat-icon m-t-20" style="position: relative; width: 80px; height: 90px; margin: 0 auto">
+                <div class="stat-number {% if numProc == 0 %}bgm-red{%else%}bgm-lightgreen{% endif %} text-center" style="border-radius: 50%!important; position: absolute;color: white; right: -10px; top: -10px; padding: 5px; width: 30px; height: 30px;">{{numProc}}</div>
+                <div class="stat-icon bgm-deeppurple">
+                    <span class="zmdi zmdi-collection-text" style="font-size: 65px; line-height: 65px; color: white"></span>
+                </div>
+            </div>
+            <p class="text-center">Procedimientos</p>
+        </section>
+        <section class="stat-container col-md-2 col-sm-6 col-xs-12">
+            <div class="dashboard-stat-icon m-t-20" style="position: relative; width: 80px; height: 90px; margin: 0 auto">
+                <div class="stat-number {% if numMateriales == 0 %}bgm-red{%else%}bgm-lightgreen{% endif %} text-center" style="border-radius: 50%!important; position: absolute;color: white; right: -10px; top: -10px; padding: 5px; width: 30px; height: 30px;">{{numMateriales}}</div>
+                <div class="stat-icon bgm-deeppurple">
+                    <span class="zmdi zmdi-roller" style="font-size: 65px; line-height: 65px; color: white"></span>
+                </div>
+            </div>
+            <p class="text-center">Materiales</p>
+        </section>
+        <section class="stat-container col-md-2 col-sm-6 col-xs-12">
+            <div class="dashboard-stat-icon m-t-20" style="position: relative; width: 80px; height: 90px; margin: 0 auto">
+                <div class="stat-number {% if numFacturas == 0 %}bgm-red{%else%}bgm-lightgreen{% endif %} text-center" style="border-radius: 50%!important; position: absolute;color: white; right: -10px; top: -10px; padding: 5px; width: 30px; height: 30px;">{{numFacturas}}</div>
+                <div class="stat-icon bgm-deeppurple">
+                    <span class="zmdi zmdi-file-text" style="font-size: 65px; line-height: 65px; color: white"></span>
+                </div>
+            </div>
+            <p class="text-center">Facturas</p>
+        </section>
+    </div>
+    <div class="row margin_bottom">
+        <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 m-t-20">
+            <div class="dashboard-stat wetAsphalt">
+                <div class="visual">
+                    <i class="zmdi zmdi-wrench"></i>
+                </div>
+                <div class="details">
+                    <div class="number">
+                        {{manActs|length}}
+                    </div>
+                    <div class="desc">
+                        {% if numPlanes == 1 %}
+                            Necesidad de Mantenimiento
+                        {%else%}
+                            Necesidades de Mantenimiento
+                        {% endif %}
+                    </div>
+                </div>
+                <section class="dashboard-stat-notifications" style="clear: both; display: block; padding: {% if manActs|length == 0 %}0{% endif %}{% if manActs|length > 0 %}5px{% endif %}">
+                    <div class="dashboard-stat-notifications-body">
+                        <div class="panel panel-default">
+                            {% if manActs|length > 0 %}
+                                {% for manAct in manActs%}
+                                    <div class="panel-body">
+                                        <div class="alert alert-dash alert-dismissible fade in" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                            Queda menos de 15 días para darle mantenimiento al <a href="{{ path('activo_show', {id:manAct.id })}}" class="alert-link">{{ manAct.nombre }}</a>.
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %} 
+
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 m-t-20">
+            <div class="dashboard-stat carrot">
+                <div class="visual">
+                    <i class="zmdi zmdi-case-check"></i>
+                </div>
+                <div class="details">
+                    <div class="number">
+                        {{ordSC|length}}
+                    </div>
+                    <div class="desc">
+                        {% if ordSC|length == 1 %}
+                            Orden de Trabajo
+                        {%else%}
+                            &Oacute;rdenes de Trabajo
+                        {% endif %} 
+                    </div>
+                </div>
+                <section class="dashboard-stat-notifications" style="clear: both; display: block; padding: {% if manActs|length == 0 %}0{% endif %}{% if manActs|length > 0 %}5px{% endif %}">
+                    <div class="dashboard-stat-notifications-body">
+                        <div class="panel panel-default">
+                            {% if ordSC|length > 0 %}
+                                {% for ord in ordSC%}
+                                    <div class="panel-body">
+                                        <div class="alert alert-dash alert-dismissible fade in" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                            Queda menos de 15 días para darle cumplimiento a la orden 
+                                            <a href="{{ path('ordentrabajo_show', {id:ord.id })}}" class="alert-link">{{ ord.nombre }}</a>.
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %} 
+                        </div>
+
+                    </div>
+                </section>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12 m-t-20" id="container" style="height: 300px">
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'container',
+                type: 'column',
+                options3d: {
+                    enabled: true,
+                    alpha: 15,
+                    beta: 15,
+                    depth: 50,
+                    viewDistance: 25
+                }
+            },
+            plotOptions: {
+                column: {
+                    depth: 25
+                }
+            },
+            title: {
+                text: 'Comparativa General'
+            },
+            xAxis: {
+                categories: ['Áreas', 'Proveedores', 'Tipos de Activo', 'Procedimientos', 'Materiales', 'Facturas']
+            },
+            yAxis: {
+                title: {
+                    text: 'Cantidad'
+                }
+            },
+            legend: {
+                enabled: false
+            },
+            series: [{
+                    name: 'Cantidad',
+                    data: [{{numAreas}},{{numProveedores}},{{numtActivo}},{{numProc}},{{numMateriales}},{{numFacturas}}]
+                }]
+        });
+    </script>
+{% endblock  %}
+

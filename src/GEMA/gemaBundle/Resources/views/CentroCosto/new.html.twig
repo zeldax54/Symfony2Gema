@@ -1,0 +1,53 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% form_theme form 'gemaBundle:Form:theme.html.twig'%}
+{#{% form_theme form 'ShtumiUsefulBundle::fields.html.twig'%}#}
+
+
+
+
+
+
+
+{% block gema_page -%}
+
+
+    <h1>Crear Centro de Costo</h1>
+    <span id="cc"></span>
+    {{ form(form) }}
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('centrocosto')}}"><i class="fa fa-list"></i>
+                Listar CentroCosto
+            </a></li>
+    </ul>
+
+{% endblock %}
+
+
+
+
+{% block custom_javascripts %}
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            updateFields();
+
+        });
+
+        $('#gema_gemabundle_centrocosto_area').change(function(){
+
+            updateFields();
+        });
+function updateFields()
+{
+    var id=$('#gema_gemabundle_centrocosto_area').val();
+    DBConect('area_deptos','id',id,'gema_gemabundle_centrocosto_departamento');
+}
+
+
+
+    </script>
+
+{% endblock %}
+
+

@@ -1,0 +1,28 @@
+tipoactividad:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:TipoActividad:index" }
+
+tipoactividad_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:TipoActividad:show" }
+
+tipoactividad_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:TipoActividad:new" }
+
+tipoactividad_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:TipoActividad:create" }
+    requirements: { _method: post }
+
+tipoactividad_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:TipoActividad:edit" }
+
+tipoactividad_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:TipoActividad:update" }
+
+tipoactividad_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:TipoActividad:delete" }

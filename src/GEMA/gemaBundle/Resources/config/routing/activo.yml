@@ -1,0 +1,37 @@
+activo:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Activo:index" }
+
+activo_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Activo:show" }
+
+activo_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Activo:new" }
+
+activo_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Activo:create" }
+    requirements: { _method: post }
+
+activo_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Activo:edit" }
+
+activo_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Activo:update" }
+
+activo_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Activo:delete" }
+
+activo_reporte:
+    pattern:  /reporteActivos
+    defaults: { _controller: "gemaBundle:Activo:reporteActivos" }
+    
+activo_importar:
+    pattern:  /importar
+    defaults: { _controller: "gemaBundle:Activo:import" }
+

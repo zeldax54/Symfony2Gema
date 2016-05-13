@@ -1,0 +1,32 @@
+planmtto:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:PlanMtto:index" }
+
+planmtto_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:PlanMtto:show" }
+
+planmtto_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:PlanMtto:new" }
+
+planMttonewparam:
+      pattern: /{id}/new
+      defaults: { _controller: "gemaBundle:PlanMtto:new" }
+
+planmtto_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:PlanMtto:create" }
+    requirements: { _method: post }
+
+planmtto_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:PlanMtto:edit" }
+
+planmtto_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:PlanMtto:update" }
+
+planmtto_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:PlanMtto:delete" }

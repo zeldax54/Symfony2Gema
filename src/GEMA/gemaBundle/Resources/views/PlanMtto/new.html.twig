@@ -1,0 +1,126 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% block gema_navbar_mantenimiento %}active{% endblock %}
+{% block gema_breadcrumb %}
+    <li><a href="{{path('planmtto')}}">Necesidades de Mantenimiento</a></li>
+    <li class="active">Nueva</li>
+{% endblock %}
+
+{% block gema_page -%}
+    <div class="page-header">
+        <h2>Crear Necesidad de Mantenimiento</h2>
+    </div>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.nombre) }}
+    {{ form_row(form.ciclo) }}
+    {{ form_row(form.tipoPrioridad) }}
+    {{ form_row(form.fecha) }}
+    {{ form_row(form.activo) }}
+
+          {% if activo is defined and activo is not null %}
+              <div class="form-group">
+                  <div class="col-md-10">
+              <a class="btn default" data-toggle="modal" href="#responsive" style=" margin-left: 103px">
+                  Estrategia </a></div>
+                  </div>
+       {% endif %}
+
+    {{ form_rest(form) }}
+    {{ form_end(form) }}
+    {#{{ form(form) }}#}
+
+
+
+    <div style="display: none;" class="modal fade" id="responsive" tabindex="-1" role="basic" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">Estrategia de Operaciones</h4>
+                </div>
+                <div class="modal-body">
+                    {% if activo is defined and activo is not null%}
+                        <div class="col-xs-12">
+                            <section class="gemaCard m-t-10">
+                                <header>Plan de Operaciones para el activo: {{ activo.noInventario }} </header>
+                                <div class="cardBody">
+                                    <div class="cardIcon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <div class="gema-block gema-show p-t-30">
+                                        <div class="col-xs-12" id='calendar'></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <footer class=""></footer>
+                            </section>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    {#<button type="button" class="btn default" data-dismiss="modal">Cerrar</button>#}
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+{% endblock %}
+
+{% block custom_javascripts %}
+    <script>
+        $(document).ready(function () {
+            $('<a href="{{path('planmtto')}}" class="btn btn-default m-l-10 btn-cancel">Cancelar</a>').insertAfter('#gema_gemabundle_planmtto_submit');
+
+
+            UpdateSelect();
+
+            UpdateCalendar();
+
+
+});
+
+
+        function UpdateSelect()
+        {
+            {% if activo is defined and activo is not null%}
+            var x={{ activo.id }};
+            $('#gema_gemabundle_planmtto_activo').find('option').each(function(i){
+                if(x==this.value)
+                {
+                    this.selected=true;
+                    $('#gema_gemabundle_planmtto_activo').trigger("chosen:updated");
+                }
+            });
+            {% endif %}
+        }
+
+        function UpdateCalendar()
+        {
+            {% if activo!=null %}
+            $('#calendar').fullCalendar({
+                weekends: false,
+                theme: false,
+                lang: 'es',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                events: [{% for estOp in activo.estOps %}
+                    {
+                        start: '{{estOp.desde | date ('Y-m-d')}}T{{estOp.desde | date ('H:M:s')}}',
+                        end: '{{estOp.hasta | date ('Y-m-d')}}T{{estOp.hasta | date ('H:M:s')}}'
+                    }
+                    {% if not loop.last %},{%  endif %}
+                    {% endfor %}
+                ]
+            });
+            {%  endif %}
+        }
+
+
+    </script>    
+{% endblock %}

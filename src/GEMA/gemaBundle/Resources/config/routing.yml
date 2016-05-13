@@ -1,0 +1,111 @@
+gema_loggedcheck:
+    pattern:  /loggedcheck
+    defaults: { _controller: gemaBundle:Default:loggedcheck }
+    
+gema_home:
+    pattern:  /
+    defaults: { _controller: gemaBundle:Default:index }
+
+gema_login:
+    pattern:  /login
+    defaults: { _controller: gemaBundle:Seguridad:login }
+    
+gema_logout:
+    pattern:  /logout
+    defaults: { _controller: gemaBundle:Seguridad:logout }
+    
+gema_login_check:
+    pattern:  /login_check
+    defaults: { _controller: gemaBundle:Seguridad:securityCheck }
+    
+gemaBundle_persona:
+    resource: "@gemaBundle/Resources/config/routing/persona.yml"
+    prefix:   /persona      
+    
+gemaBundle_usuario:
+    resource: "@gemaBundle/Resources/config/routing/usuario.yml"
+    prefix:   /usuario
+    
+    
+gemaBundle_rol:
+    resource: "@gemaBundle/Resources/config/routing/rol.yml"
+    prefix:   /rol
+
+gemaBundle_actividad:
+    resource: "@gemaBundle/Resources/config/routing/actividad.yml"
+    prefix:   /actividad
+        
+gemaBundle_activo:
+    resource: "@gemaBundle/Resources/config/routing/activo.yml"
+    prefix:   /activo
+        
+gemaBundle_area:
+    resource: "@gemaBundle/Resources/config/routing/area.yml"
+    prefix:   /area
+
+gemaBundle_factura:
+    resource: "@gemaBundle/Resources/config/routing/factura.yml"
+    prefix:   /factura
+    
+gemaBundle_ordentrabajo:
+    resource: "@gemaBundle/Resources/config/routing/ordentrabajo.yml"
+    prefix:   /ordentrabajo    
+    
+gemaBundle_planmtto:
+    resource: "@gemaBundle/Resources/config/routing/planmtto.yml"
+    prefix:   /planmtto    
+
+gemaBundle_proveedor:
+    resource: "@gemaBundle/Resources/config/routing/proveedor.yml"
+    prefix:   /proveedor
+
+gemaBundle_tipoactividad:
+    resource: "@gemaBundle/Resources/config/routing/tipoactividad.yml"
+    prefix:   /tipoactividad
+    
+gemaBundle_tipoactivo:
+    resource: "@gemaBundle/Resources/config/routing/tipoactivo.yml"
+    prefix:   /tipoactivo
+    
+gemaBundle_tipoprioridad:
+    resource: "@gemaBundle/Resources/config/routing/tipoprioridad.yml"
+    prefix:   /tipoprioridad
+
+gemaBundle_traza:
+    resource: "@gemaBundle/Resources/config/routing/traza.yml"
+    prefix:   /traza
+    
+gemaBundle_repuesto:
+    resource: "@gemaBundle/Resources/config/routing/repuesto.yml"
+    prefix:   /repuesto
+    
+gemaBundle_otrep:
+        resource: "@gemaBundle/Resources/config/routing/otrep.yml"
+        prefix:   /otrep
+        
+gemaBundle_proveedor:
+    resource: "@gemaBundle/Resources/config/routing/proveedor.yml"
+    prefix:   /proveedor
+    
+gemaBundle_procedimiento:
+    resource: "@gemaBundle/Resources/config/routing/procedimiento.yml"
+    prefix:   /procedimiento
+
+gemaBundle_insumo:
+    resource: "@gemaBundle/Resources/config/routing/insumo.yml"
+    prefix:   /insumo
+
+gemaBundle_herramienta:
+    resource: "@gemaBundle/Resources/config/routing/herramienta.yml"
+    prefix:   /herramienta
+    
+gemaBundle_accion:
+    resource: "@gemaBundle/Resources/config/routing/accion.yml"
+    prefix:   /accion
+
+gemaBundle_localizacion:
+    resource: "@gemaBundle/Resources/config/routing/localizacion.yml"
+    prefix:   /localizaciones
+gemaBundle_centrocosto:
+    resource: "@gemaBundle/Resources/config/routing/centrocosto.yml"
+    prefix:   /centrocosto

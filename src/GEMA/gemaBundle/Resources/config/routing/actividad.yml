@@ -1,0 +1,28 @@
+actividad:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Actividad:index" }
+
+actividad_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Actividad:show" }
+
+actividad_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Actividad:new" }
+
+actividad_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Actividad:create" }
+    requirements: { _method: post }
+
+actividad_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Actividad:edit" }
+
+actividad_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Actividad:update" }
+
+actividad_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Actividad:delete" }

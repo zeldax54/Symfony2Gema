@@ -1,0 +1,50 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+
+{% block gema_page -%}
+    <h2>Procedimiento</h2>
+    {% for flashMessage in app.session.flashbag.get('notice') %} 
+        <div class="alert alert-success alert-dismissable animated fadeIn">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <strong>;)</strong> {{ flashMessage }}
+        </div>
+    {% endfor %}
+    <div class="table-responsive">
+        <table class="record_properties table table-hover">
+            <thead>
+                <tr>                                                                <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Organizacionproductiva</th>
+                    <th>Tiempototal</th>
+
+                    <th colspan="3">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>                                        
+                    <td>{{ entity.codigo }}</td>
+
+                    <td>{{ entity.nombre }}</td>
+
+                    <td>{{ entity.organizacionProductiva }}</td>
+
+                    <td>{{ entity.tiempoTotal }}</td>
+
+                    <td><a href="{{ path('procedimiento_show', { 'id': entity.id }) }}"><i class="fa fa-eye"></i> Mostrar</a></td>
+                    <td><a href="{{ path('procedimiento_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
+                    <td><a href="{{ path('procedimiento_delete', { 'id': entity.id }) }}"><i class="fa fa-minus-circle"></i> Eliminar</a></td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('procedimiento')}}"><i class="fa fa-list"></i>
+                Listado de Procedimiento
+            </a>
+        </li>
+    </ul>
+
+
+{% endblock %}

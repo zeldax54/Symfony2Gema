@@ -1,0 +1,28 @@
+insumo:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Insumo:index" }
+
+insumo_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Insumo:show" }
+
+insumo_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Insumo:new" }
+
+insumo_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Insumo:create" }
+    requirements: { _method: post }
+
+insumo_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Insumo:edit" }
+
+insumo_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Insumo:update" }
+
+insumo_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Insumo:delete" }

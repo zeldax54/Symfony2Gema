@@ -1,0 +1,193 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% block gema_navbar_personas %}active{% endblock %}
+{% block gema_breadcrumb %}
+    <li><a href="#">Nomencladores</a></li>
+    <li class="active">Personas</li>
+{% endblock %}
+    {% block gema_page -%}
+        <div class="page-header">
+            <h2>{{  cantidad }}  Recursos Humanos Importados</h2>
+
+        </div>
+        {% for flashMessage in app.session.flashbag.get('notice') %}
+            <div class="alert alert-success alert-dismissable auto-dismiss animated fadeIn m-b-5 m-t-10">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <strong>;)</strong> {{ flashMessage }}
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="alert alert-danger alert-dismissable auto-dismiss animated fadeIn m-b-5 m-t-10">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <strong>;)</strong> {{ flashMessage }}
+            </div>
+        {% endfor %}
+        {% if entities is empty %}
+            <div class="bs-callout bs-callout-info">
+                <i class="fa fa-info-circle img-responsive info_icon"></i>
+                <h4>Aviso</h4>
+                <p>No hay excel copiado en la carpeta.</p>
+            </div>
+            <ul class="pager">
+                <li class="next"><a href="{{ path('persona_new') }}" class="btn-new"><i class="fa fa-plus-circle"></i>
+                        Nuevo RH
+                    </a></li>
+            </ul>
+        {% else %}
+
+            <div class="table-responsive">
+                <table class="record_properties table table-hover table table-striped table-vmiddle" id="data-table-command" >
+                    <thead>
+                    <tr>
+                        <th data-column-id="id" data-type="numeric" data-identifier="true" data-visible="false">ID</th>
+                        <th data-column-id="ci">CI</th>
+                        <th data-column-id="nombre" data-formatter="nombre">Nombre</th>
+                        <th data-column-id="cargo" >Cargo</th>
+                        <th data-column-id="salario" data-formatter="factura" >Salario</th>
+                        <th colspan="3" data-formatter="commands" data-sortable="false" data-searchable="false">Acciones</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for e in entities %}
+                        <tr >
+                            <td>{{ e.id }}</td>
+                            <td>{{ e.cIdentidad }}</td>
+                            <td>{{ e.nombre }}</td>
+                            <td>{{ e.cargo }}</td>
+                            <td>{{ e.salario }}</td>
+                             <td></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        {%endif%}
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="graficoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Gráfica</h4>
+                    </div>
+                    <div class="modal-body p-20" >
+                        <div id="container"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Eliminar Registro</h4>
+                    </div>
+                    <div class="modal-body">
+                        ¿Está seguro que desea eliminar el registro definitivamente?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary eliminarRegistro">Aceptar</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+        {#
+        #}
+        <div class="modal fade" id="vacioModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Eliminar Registro</h4>
+                    </div>
+                    <div class="modal-body">
+                        No ha cargado un archivo Excel.
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+
+
+    {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        var url = "";
+        $("#data-table-command").bootgrid({
+            css: {
+                icon: 'md icon',
+                iconColumns: 'md-view-module',
+                iconDown: 'md-expand-more',
+                iconRefresh: 'md-refresh',
+                iconUp: 'md-expand-less'
+            },
+            formatters: {
+               "commands": function (column, row) {
+                   return "<a href='" + Routing.generate('persona_show', {id: row.id}) + "'  class=\"btn btn-icon command-show\" ><span class=\"md md-info-outline\"></span></a> " +
+                    "<a href='" + Routing.generate('persona_edit', {id: row.id}) + "'  class=\"btn btn-icon command-edit\" ><span class=\"md md-edit\"></span></a> " +
+                    "<a href='" + Routing.generate('persona_delete', {id: row.id}) + "' data-id=\'" + row.id + "\'   class=\"btn btn-icon command-delete\" ><span class=\"md md-delete\"></span></a>";
+                }
+
+
+            }, templates: {
+                header: "<div id=\"\{\{ctx.id\}\}\" class=\"\{\{css.header\}\}\"><div class=\"row\"><div class=\"col-sm-12 col-md-8 actionBar\"><p class=\"\{\{css.search\}\}\"></p><p class=\"\{\{css.actions\}\}\"></p></div><div class=\"col-sm-12 col-md-4 actionBar\"><a href=\"{{ path('persona_new') }}\"><i class=\"fa fa-plus-circle\"></i>Nuevo RH</a><a data-toggle=\"modal\" href=\"#graphModal\" id=\"modalTrigger\" class=\"m-r-10 btn-pdf\"><i class=\"fa fa-area-chart m-r-0\"></i></a><a href=\"{{ path('persona_reporte') }}\" class=\"m-r-10 btn-pdf\"><i class=\"fa fa-file-pdf-o m-r-0\"></i></a><a href=\"{{ path('persona_reporte',{'type':'excel'}) }}\" class=\"m-r-10 btn-pdf\"><i class=\"fa fa fa-file-excel-o m-r-0\"></i></a></div></div></div>",
+                loading: "<tr><td colspan='7' class=\"loading\"><div class='loading'><img src='{{ asset('bundles/gema/images/loading.gif') }}' class='img-responsive'></div></td></tr>"
+            },
+//            ajax: true,
+            {#url: "{{ path('activo') }}"#}
+        }).on("loaded.rs.jquery.bootgrid", function (e)
+        {
+            $("#modalTrigger").on('click', function () {
+                $("#graficoModal").modal("show");
+            });
+            $(".command-delete").on('click', function (evt) {
+                evt.preventDefault();
+                url = Routing.generate('persona_delete', {id: $(this).data('id')});
+                $("#deleteModal").modal("show");
+            });
+
+            $(".eliminarRegistro").on("click", function (evt) {
+                window.location = url;
+            });
+
+
+
+
+
+
+        });
+
+
+        $('#graficoModal').on('show.bs.modal', function () {
+            $('#container').css('visibility', 'hidden');
+        });
+        $('#graficoModal').on('shown.bs.modal', function () {
+            $('#container').css('visibility', 'initial');
+            $("#container").highcharts().reflow();
+        });
+
+        $("#reload").on("click", function () {
+            $("#data-table-command").bootgrid("reload");
+        });
+
+
+
+
+
+    </script>
+{% endblock  %}

@@ -1,0 +1,24 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% block gema_navbar_seguridad %}active{% endblock %}
+{% block gema_breadcrumb %}
+    <li><a href="#">Seguridad</a></li>
+    <li><a href="{{path('area')}}">Rol</a></li>
+    <li class="active">Editar</li>
+{% endblock %}
+{% block gema_page -%}
+<div class="page-header">
+        <h2>Editar Rol</h2>
+    </div>
+
+{{ form(edit_form) }}
+
+<ul class="pager">
+    <li class="next"><a href="{{path('rol')}}"><i class="fa fa-ban"></i>
+            Cancelar
+        </a></li>
+        <li class="next"><a href="{{path('rol')}}" class="m-r-10"><i class="fa fa-list"></i>
+            Listado de Roles
+        </a></li>
+
+</ul>
+{% endblock %}

@@ -1,0 +1,28 @@
+herramienta:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Herramienta:index" }
+
+herramienta_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Herramienta:show" }
+
+herramienta_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Herramienta:new" }
+
+herramienta_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Herramienta:create" }
+    requirements: { _method: post }
+
+herramienta_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Herramienta:edit" }
+
+herramienta_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Herramienta:update" }
+
+herramienta_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Herramienta:delete" }

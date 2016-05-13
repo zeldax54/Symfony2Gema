@@ -1,0 +1,81 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <style type="text/css">
+            table{
+                width: 100%;
+                text-align: left;       
+            }
+
+            table tr{
+                padding: 5px 10px;
+            }
+            table tr td{
+            }
+            .contenido td{
+                font-size: 10pt;
+                font-weight: 200;
+            }
+            .record_properties{
+                border: 1px solid #8B7958;
+            }
+            .record_properties tr td{
+                border-bottom: 1px solid #8B7958;
+                border-right: 1px solid #8B7958;
+            }            
+            .record_properties thead tr th{
+                border-bottom: 1px solid #8B7958;
+                border-right: 1px solid #8B7958;
+            }
+            .record_properties tr:last-of-type td{
+                border-bottom: none;
+            }
+            .record_properties tr td:last-of-type, .record_properties thead tr th:last-of-type{
+                border-right: none;
+            }
+        </style>
+    </head>
+    <body>
+        <table style="width: 100%" class="header list">
+            <tr style="text-align: center">
+                <td style="width: 100%; vertical-align: middle;">
+                    <h1>REPORTE DE ACTIVOS</h1>
+                </td>
+            </tr>
+        </table>
+        </table>
+        <div class="table-responsive">
+            <table class="record_properties list" id="data-table-command" >
+                <thead>
+                    <tr class="separate">         
+                        <th data-column-id="noInventario">No. de Inventario</th>  
+                        <th data-column-id="marca" >Marca</th>                                                                        
+                        <th data-column-id="modelo" >Modelo</th>                                                                        
+                        <th data-column-id="fechaDepreciacion" data-formatter="fechaDepreciacion" >Fecha de Depreciaci&oacute;n</th>                                                                        
+                        <th data-column-id="factura" data-formatter="factura" >Factura</th>                                                                               
+                        <th data-column-id="factura" data-formatter="facturaPrecio" >Costo</th>                                                                               
+                        <th data-column-id="tipoActivo" data-formatter="tipoActivo">Tipo Activo</th>                                                                        
+                        <th data-column-id="area" data-formatter="area">Area</th>   
+                        <th data-column-id="centroCosto" data-formatter="cc">Centro de Costo</th>      
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for activo in activos %}
+                        <tr class="contenido" style="text-align: center">
+                            <td>{{ activo.noInventario }}</td>
+                            <td>{{ activo.marca|e }}</td>
+                            <td>{{ activo.modelo|e }}</td>
+                            <td>{{ activo.fechaDepreciacion|date('d-m-Y') }}</td>
+                            <td>{{ activo.factura|e }}</td>
+                            <td>{{ activo.factura.getPrecio()|e }}</td>
+                            <td>{{ activo.tipoActivo|e }}</td>
+                            <td>{{ activo.area|e }}</td>
+                            <td>{{ activo.centroCosto|e }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+tipoprioridad:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:TipoPrioridad:index" }
+
+tipoprioridad_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:TipoPrioridad:show" }
+
+tipoprioridad_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:TipoPrioridad:new" }
+
+tipoprioridad_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:TipoPrioridad:create" }
+    requirements: { _method: post }
+
+tipoprioridad_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:TipoPrioridad:edit" }
+
+tipoprioridad_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:TipoPrioridad:update" }
+
+tipoprioridad_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:TipoPrioridad:delete" }

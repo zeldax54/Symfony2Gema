@@ -1,0 +1,38 @@
+persona:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Persona:index" }
+
+persona_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Persona:show" }
+
+persona_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Persona:new" }
+
+persona_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Persona:create" }
+    requirements: { _method: post }
+
+persona_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Persona:edit" }
+
+persona_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Persona:update" }
+
+persona_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Persona:delete" }
+
+persona_reporte:
+    pattern:  /reporte
+    defaults: { _controller: "gemaBundle:Persona:reporte" }
+
+persona_import:
+    pattern:  /import
+    defaults: { _controller: "gemaBundle:Persona:import" }
+
+

@@ -1,0 +1,92 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% block gema_navbar_nomencladores %}active{% endblock %}
+{% block gema_breadcrumb %}
+    <li><a href="#">Nomencladores</a></li>
+    <li><a href="{{path('area')}}">Áreas</a></li>
+    <li class="active">Nueva</li>
+{% endblock %}
+{% block gema_page -%}
+    <div class="page-header">
+        <h2>Crear &Aacute;rea</h2>
+    </div>
+
+    {{ form_start(form) }}
+
+
+    {{ form_row(form.nombre) }}
+
+
+<div class="form-group">
+    <div class="col-xs-12">
+        <ul class="departamentos" data-prototype="{{ form_widget(form.departamentos.vars.prototype)|e }}"></ul>
+</div>
+
+</div>
+
+    {{ form_rest(form) }}
+
+    {{ form_end(form) }}
+
+
+
+
+
+
+
+
+{% endblock %}
+{% block custom_javascripts %}
+    <script>
+        var $collectionHolder;
+        // setup an "add a tag" link
+        var $addTagLink = $('<a href="#" class="btn btn-success">Agregar Departamento</a>');
+        var $newLinkLi = $('<li form-control></li>').append($addTagLink);
+
+        $(document).ready(function () {
+            $('<a href="{{path('area')}}" class="btn btn-default m-l-10 btn-cancel">Cancelar</a>').insertAfter('#gema_gemabundle_area_submit');
+
+
+
+            // Get the ul that holds the collection of tags
+            $collectionHolder = $('ul.departamentos');
+            $collectionHolder.find('li').each(function() {
+                addTagFormDeleteLink($(this));
+            });
+            // add the "add a tag" anchor and li to the tags ul
+            $collectionHolder.append($newLinkLi);
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+            $addTagLink.on('click', function(e) {
+                e.preventDefault();
+                addDepForm($collectionHolder, $newLinkLi);
+            });
+
+        });
+
+
+
+        function addDepForm($collectionHolder, $newLinkLi) {
+
+            var prototype = $collectionHolder.data('prototype');
+            var index = $collectionHolder.data('index');
+            var newForm = prototype.replace(/__name__/g, index);
+            $collectionHolder.data('index', index + 1);
+            var $newFormLi = $('<li></li>').append(newForm);
+            addTagFormDeleteLink($newFormLi);
+            $newLinkLi.before($newFormLi);
+        }
+
+
+        function addTagFormDeleteLink($tagFormLi) {
+            var $removeFormA = $('<div style="text-align: center"><a href="#" class="btn btn-default">Eliminar este Departamento</a><div>');
+            $tagFormLi.append($removeFormA);
+            $removeFormA.on('click', function(e) {
+                e.preventDefault();
+                $tagFormLi.remove();
+            });
+        }
+
+
+    </script>
+
+
+{% endblock %}

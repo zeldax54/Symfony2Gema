@@ -1,0 +1,145 @@
+{% extends '::base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <header class="row gema_header">
+            <section class="col-md-9 gema_system">
+                <img src="{{asset('bundles/gema/images/gema_logo_2.png')}}" class="logo-gema" alt="GEMA Logo" style="height: 80px">
+            </section>
+            <section class="col-md-3 gema_user_info">
+                <div class="btn-group  pull-right">
+                    <button type="button" class="btn btn-default dropdown-toggle gema_user" data-toggle="dropdown">
+                        <i class="fa fa-user"></i>Bienvenido {% block gema_user %}{{app.user.username}}{% endblock %} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" style="z-index: 10000">
+                        <li><a href="{{ path("gema_logout")}}"><i class="fa fa-sign-out"></i> Cerrar Sesión</a></a></li>
+                    </ul>
+                </div>
+
+            </section>
+        </header>
+        <nav role="navigation" class="navbar navbar-default navbar-static-top margin_bottom">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <!-- Collection of nav links and other content for toggling -->
+                <div id="navbarCollapse" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="{% block gema_navbar_dashboard %}{% endblock %}"><a href="{{path("gema_home")}}"><i class="fa fa-dashboard icon-navbar fa-lg hidden-md"></i>Tablero de Control</a></li>
+                            {% if app.user and (is_granted('ROLE_ADMINISTRADOR') or is_granted('ROLE_MANTENIMIENTO')) %}
+                            <li class="dropdown {% block gema_navbar_nomencladores %}{% endblock %}">
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="fa fa-code-fork icon-navbar fa-lg hidden-md"></i>Nomencladores <b class="caret"></b></a>
+                                <ul role="menu" class="dropdown-menu">
+                                    {% if app.user and is_granted('ROLE_ADMINISTRADOR') %}
+                                    <li><a href="{{path("area")}}"><i class="md md-extension icon-navbar fa-lg"></i>&Aacute;reas</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="{{path("localizacion")}}"><i class="md md-extension icon-navbar fa-lg"></i>Localizaciones</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="{{path("centrocosto")}}"><i class="md md-extension icon-navbar fa-lg"></i>Centros de Costo</a></li>
+                                        <li class="divider"></li>
+                                    <li><a href="{{path("proveedor")}}"><i class="fa fa-thumbs-up icon-navbar fa-lg"></i>Proveedores</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{path("tipoactivo")}}"><i class="zmdi zmdi-labels icon-navbar fa-lg"></i>Tipos de Activo</a></li>
+                                    {% endif %}
+                                    {% if app.user and (is_granted('ROLE_ADMINISTRADOR') or is_granted('ROLE_MANTENIMIENTO')) %}
+                                    <li class="divider"></li>
+                                    <li><a href="{{path("herramienta")}}"><i class="zmdi zmdi-roller icon-navbar fa-lg"></i>Herramientas</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{path("insumo")}}"><i class="zmdi zmdi-cutlery icon-navbar fa-lg"></i>Insumos</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{path("repuesto")}}"><i class="fa fa-plug icon-navbar fa-lg"></i>Repuestos</a></li>
+                                    {% endif %}
+                                    {% if app.user and is_granted('ROLE_ADMINISTRADOR') %}
+                                    <li class="divider"></li>
+                                    <li><a href="{{path("tipoprioridad")}}"><i class="fa fa-list-ol icon-navbar fa-lg"></i>Tipo de Prioridad</a></li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+                        {% endif %}
+
+                        {% if app.user and (is_granted('ROLE_ALMACENERO')  or is_granted('ROLE_OPERACIONES')) %}
+                            <li class="dropdown {% block gema_navbar_activos %}{% endblock %}">
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="zmdi zmdi-seat icon-navbar fa-lg hidden-md"></i>Activo<b class="caret"></b></a>
+                                <ul role="menu" class="dropdown-menu">
+                        {% if app.user and (is_granted('ROLE_ALMACENERO') ) %}
+                                    <li><a href="{{path("factura")}}"><i class="fa fa-file-text icon-navbar fa-lg"></i>Listar Facturas</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{path("factura_new")}}"><i class="zmdi zmdi-file-plus icon-navbar fa-lg"></i>Registrar Factura</a></li>
+                                    <li class="divider"></li>
+                        {% endif %}
+                                    <li><a href="{{path("activo")}}"><i class="fa fa-file-text icon-navbar fa-lg"></i>Listar Activos</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{path("activo_new")}}"><i class="zmdi zmdi-file-plus icon-navbar fa-lg"></i>Registrar Activo</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{path("activo_importar")}}"><i class="zmdi zmdi-file-text icon-navbar fa-lg"></i>Importar Activos</a></li>
+
+
+
+
+                                </ul>
+                            </li>
+                        {% endif %}
+                        {% if app.user and is_granted('ROLE_MANTENIMIENTO') %}
+                            <li class="dropdown {% block gema_navbar_mantenimiento %}{% endblock %}">
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="zmdi zmdi-wrench icon-navbar fa-lg hidden-md"></i>Mantenimiento<b class="caret"></b></a>
+                                <ul role="menu" class="dropdown-menu">
+                                    <li><a href="{{path("planmtto")}}"><i class="fa fa-file-text icon-navbar fa-lg"></i>Listado de Planes</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{path("planmtto_new")}}"><i class="zmdi zmdi-file-plus icon-navbar fa-lg"></i>Planificar Mantenimiento</a></li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown {% block gema_navbar_orden %}{% endblock %}">
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="zmdi zmdi-case-check icon-navbar fa-lg hidden-md"></i>Orden de Trabajo<b class="caret"></b></a>
+                                <ul role="menu" class="dropdown-menu">
+                                    <li><a href="{{path("accion")}}"><i class="zmdi zmdi-collection-plus icon-navbar fa-lg"></i>Acciones</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{ path("procedimiento") }}"><i class="zmdi zmdi-collection-text icon-navbar fa-lg"></i>Procedimientos</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{path("ordentrabajo")}}"><i class="fa fa-file-text icon-navbar fa-lg"></i>Listado de &Oacute;rdenes</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{path("ordentrabajo_new")}}"><i class="zmdi zmdi-file-plus icon-navbar fa-lg"></i>Registrar Orden de Trabajo</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                        {% if app.user and is_granted('ROLE_ADMINISTRADOR') %}
+                            <li class="dropdown {% block gema_navbar_seguridad %}{% endblock %}">
+                                <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="zmdi zmdi-shield-security icon-navbar fa-lg hidden-md"></i>Seguridad<b class="caret"></b></a>
+                                <ul role="menu" class="dropdown-menu">
+                                    <li><a href="{{path("persona")}}"><i class="fa fa-street-view icon-navbar fa-lg"></i>Recursos Humanos</a></li>
+                                    <li><a href="{{path("persona_import")}}"><i class="fa fa-street-view icon-navbar fa-lg"></i>Importar Recursos Humanos</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{path("usuario")}}"><i class="zmdi zmdi-accounts-add icon-navbar fa-lg"></i>Usuarios</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{path("traza")}}"><i class="zmdi zmdi-traffic icon-navbar fa-lg"></i>Trazas</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <ol class="breadcrumb">
+            {% block gema_breadcrumb %}
+            {% endblock %}
+        </ol>
+        <section class="gema_content margin_bottom">{% block gema_page %}{% endblock %}</section>
+        <footer class="gema_footer margin_bottom">
+        </footer>
+    </div>
+    <section class="copyright">
+        GEMA &copy; {{ 'now' | date('Y') }}
+    </section>
+{% endblock %}
+
+
+

@@ -1,0 +1,89 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% block gema_navbar_orden %}active{% endblock %}
+{% block gema_breadcrumb %}
+    <li><a href="{{ path('ordentrabajo') }}">Órdenes de Trabajo</a></li>
+    <li class="active">{{ entity.nombre }}</li>
+    {% endblock %}
+    {% block gema_page -%}
+    <div class="page-header">
+        <h2>{{ entity.nombre }}</h2>
+    </div>
+    {% for flashMessage in app.session.flashbag.get('notice') %} 
+        <div class="alert alert-success alert-dismissable animated fadeIn">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <strong>;)</strong> {{ flashMessage }}
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('notice') %} 
+        <div class="alert alert-success alert-dismissable auto-dismiss animated fadeIn m-b-5 m-t-10">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <strong>;)</strong> {{ flashMessage }}
+        </div>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('error') %} 
+        <div class="alert alert-danger alert-dismissable auto-dismiss animated fadeIn m-b-5 m-t-10">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <strong>;)</strong> {{ flashMessage }}
+        </div>
+    {% endfor %}
+    <div class="row m-t-15">
+        <div class="col-xs-12 col-md-6">
+            <section class="gemaCard">
+                <header>Datos Específicos</header>
+                <div class="cardBody">
+                    <div class="cardIcon">
+                        <i class="zmdi zmdi-case-check"></i>
+                    </div>
+                    <div class="gema-block gema-show">
+                        <ul>
+                            <li><strong class="m-r-10">Plan de Mantenimiento: </strong>{{entity.planMtto}}</li>
+                            <li><strong class="m-r-10">Activo: </strong>{{entity.planMtto.activo.nombre}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <footer class=""></footer>
+            </section>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <section class="gemaCard">
+                <header>Procedimientos</header>
+                <div class="cardBody">
+                    <div class="cardIcon">
+                        <i class="zmdi zmdi-collection-text"></i>
+                    </div>
+                    <div class="gema-block gema-show">                        
+                        {% for proc in entity.procedimientos %}
+                            <h2>{{proc.nombre}}</h2>
+                            <ul>
+                                <li><strong class="m-r-10">Código: </strong> {{proc.codigo}}</li>
+                                    {% if proc.organizacionProductiva %}
+                                    <li><strong class="m-r-10">Organización Productiva: </strong> {{proc.organizacionProductiva}}</li>
+                                    {% endif %}
+                                    {% if proc.tiempoTotal %}
+                                    <li><strong class="m-r-10">Tiempo Total (min): </strong> {{proc.tiempoTotal}}</li>
+                                    {% endif %}                                
+                                <li><strong class="m-r-10">Costo Total ($): </strong> {{proc.costoTotal}}</li>
+                                <li><strong class="m-r-10">Asignado a:</strong>{% for rh in proc.ProPers %}
+                                        {{ rh.persona.nombre}} {{rh.persona.apellidos}}, 
+                                    {% endfor %}</li>
+                                    
+                            </ul>
+                        {% endfor %}
+                    </div>
+                </div>
+                <footer class=""></footer>
+            </section>
+        </div>
+    </div> 
+
+
+
+    <ul class="pager">
+        <li class="next"><a href="{{path('ordentrabajo')}}"><i class="fa fa-list"></i>
+                Listado de &Oacute;rdenes de Trabajo
+            </a>
+        </li>
+    </ul>
+
+
+{% endblock %}

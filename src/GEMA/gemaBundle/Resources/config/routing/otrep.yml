@@ -1,0 +1,28 @@
+otrep:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:OtRep:index" }
+
+otrep_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:OtRep:show" }
+
+otrep_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:OtRep:new" }
+
+otrep_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:OtRep:create" }
+    requirements: { _method: post }
+
+otrep_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:OtRep:edit" }
+
+otrep_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:OtRep:update" }
+
+otrep_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:OtRep:delete" }

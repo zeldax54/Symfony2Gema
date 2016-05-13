@@ -1,0 +1,26 @@
+{% extends 'gemaBundle::layout.html.twig' %}
+{% block gema_page -%}
+<h3>&Aacute;rea</h3>
+<div class="table-responsive">
+    <table class="record_properties table table-hover">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th colspan="2">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>                                        
+                <td>{{ entity.nombre }}</td>
+                <td><a href="{{ path('area_edit', { 'id': entity.id }) }}"><i class="fa fa-edit"></i> Editar</a></td>
+                <td><a href="{{ path('area_delete', { 'id': entity.id }) }}"><i class="fa fa-minus-circle"></i> Eliminar</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<ul class="pager">
+    <li class="next">
+        <a href="{{path('area')}}"><i class="fa fa-list"></i>Listado de &Aacute;reas</a>
+    </li>
+</ul>
+{% endblock %}

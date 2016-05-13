@@ -1,0 +1,28 @@
+localizacion:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Localizacion:index" }
+
+localizacion_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Localizacion:show" }
+
+localizacion_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Localizacion:new" }
+
+localizacion_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Localizacion:create" }
+    requirements: { _method: post }
+
+localizacion_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Localizacion:edit" }
+
+localizacion_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Localizacion:update" }
+
+localizacion_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Localizacion:delete" }

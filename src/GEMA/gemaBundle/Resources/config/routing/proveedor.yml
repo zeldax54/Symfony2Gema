@@ -1,0 +1,28 @@
+proveedor:
+    pattern:  /
+    defaults: { _controller: "gemaBundle:Proveedor:index" }
+
+proveedor_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "gemaBundle:Proveedor:show" }
+
+proveedor_new:
+    pattern:  /new
+    defaults: { _controller: "gemaBundle:Proveedor:new" }
+
+proveedor_create:
+    pattern:  /create
+    defaults: { _controller: "gemaBundle:Proveedor:create" }
+    requirements: { _method: post }
+
+proveedor_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "gemaBundle:Proveedor:edit" }
+
+proveedor_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "gemaBundle:Proveedor:update" }
+
+proveedor_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "gemaBundle:Proveedor:delete" }
